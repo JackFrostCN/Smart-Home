@@ -1,0 +1,454 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #1f2937 0%, #1e3a8a 50%, #1f2937 100%);
+  min-height: 100vh;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  width: 32px;
+  height: 32px;
+  color: #60a5fa;
+}
+
+.header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #60a5fa, #06b6d4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.875rem;
+}
+
+.wifi-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(31, 41, 55, 0.6);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.wifi-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.wifi-connected { color: #10b981; }
+.wifi-disconnected { color: #ef4444; }
+
+.last-update {
+  color: #d1d5db;
+  padding: 8px 12px;
+  background: rgba(31, 41, 55, 0.4);
+  border-radius: 8px;
+}
+
+/* Grid Layouts */
+.env-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Card Styles */
+.card {
+  background: rgba(31, 41, 55, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(75, 85, 99, 0.6);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.card-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Environment Cards */
+.indoor-header { color: #60a5fa; }
+.outdoor-header { color: #10b981; }
+
+.env-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.env-value {
+  background: rgba(55, 65, 81, 0.5);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.value-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.value-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.temp-icon { color: #f97316; }
+.humidity-icon { color: #06b6d4; }
+.light-icon { color: #eab308; }
+
+.value-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.value-label {
+  font-size: 0.875rem;
+  color: #d1d5db;
+  margin-top: 4px;
+}
+
+/* Sensor Cards */
+.sensor-card {
+  text-align: center;
+}
+
+.sensor-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 16px 0;
+}
+
+.sensor-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.light-active {
+  background: #eab308;
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
+}
+
+.light-inactive {
+  background: #4b5563;
+}
+
+.motion-detected {
+  background: #ef4444;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+}
+
+.motion-clear {
+  background: #4b5563;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Device Cards */
+.device-card {
+  border-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.device-active {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.device-inactive {
+  background: rgba(31, 41, 55, 0.4);
+  border-color: rgba(75, 85, 99, 0.6);
+}
+
+.device-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.device-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.device-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.device-power-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.power-on { color: #10b981; }
+.power-off { color: #6b7280; }
+
+.device-info {
+  margin-bottom: 16px;
+}
+
+.device-mode {
+  font-size: 0.875rem;
+  color: #d1d5db;
+  margin-bottom: 12px;
+}
+
+.device-controls {
+  display: flex;
+  gap: 8px;
+}
+
+/* Button Styles */
+.btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-on {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+}
+
+.btn-on:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+.btn-off {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+.btn-off:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.btn-auto {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #3b82f6;
+  max-width: 80px;
+}
+
+.btn-auto:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.7;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .env-grid,
+  .sensors-grid,
+  .devices-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .env-values {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .device-controls {
+    flex-direction: column;
+  }
+
+  .btn-auto {
+    max-width: none;
+  }
+}
+
+/* Status Colors */
+.status-green { color: #10b981; }
+.status-red { color: #ef4444; }
+.status-yellow { color: #eab308; }
+.status-blue { color: #3b82f6; }
+.status-purple { color: #8b5cf6; }
+.status-gray { color: #6b7280; }
+
+/* Glassmorphism Effects */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Connection Status */
+.connection-status {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.connection-online {
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+}
+
+.connection-offline {
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+}

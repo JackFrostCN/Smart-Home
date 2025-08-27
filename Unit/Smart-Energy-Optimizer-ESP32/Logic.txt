@@ -1,0 +1,35 @@
+Decision Tree for Fan / AC Control
+----------------------------------
+
+Inputs:
+  Tin  = Indoor Temperature (°C)
+  Hin  = Indoor Humidity (%)
+  Tout = Outdoor Temperature (°C)
+  Hout = Outdoor Humidity (%)
+
+Comfort Ranges:
+  Temperature: 22–28 °C
+  Humidity:    40–60 % (70 % max)
+
+Logic:
+
+1. If (Tin ≤ 28) AND (Hin ≤ 60)
+       → Fan = OFF, AC = OFF  (Comfortable)
+
+2. Else if (Hin > 70)
+       If (Hout < Hin) AND (Tout ≤ Tin)
+           → Fan = ON   (Ventilation helps reduce humidity)
+       Else
+           → AC = ON    (Only AC can dehumidify)
+
+3. Else if (Tin > 30)
+       → AC = ON        (Too hot, fan not enough)
+
+4. Else if (28 < Tin ≤ 30)
+       If (Tout < Tin)
+           → Fan = ON   (Outside cooler, fan is enough)
+       Else
+           → AC = ON    (Outside hotter, AC required)
+
+5. Else
+       → Fan = OFF, AC = OFF
